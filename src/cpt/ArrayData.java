@@ -13,7 +13,7 @@ public ArrayList<Players> stats = new ArrayList<>();
     public void dataReader(){
 
     try {
-BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePointPercent.csv\\" )); 
+BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePointPercentEditted.csv\\" )); 
 
     
 while ((line = reader.readLine()) != null) {
