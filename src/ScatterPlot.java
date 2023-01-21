@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ScatterPlot extends Application {
 
@@ -28,17 +29,16 @@ public class ScatterPlot extends Application {
 
         // Create the data points
         List<XYChart.Data<Number, Number>> dataPoints = new ArrayList<>();
-        for (int i = 0; i < stats.length; i++){
-            
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            dataPoints.add(new XYChart.Data<>(r.nextDouble()*10, r.nextDouble()*10));
         }
-        dataPoints.add(new XYChart.Data<>(1, 2));
-        dataPoints.add(new XYChart.Data<>(3, 4));
-        dataPoints.add(new XYChart.Data<>(5, 6));
-        dataPoints.add(new XYChart.Data<>(7, 8));
 
         // Add the data points to the chart
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.getData().addAll(dataPoints);
+        for (XYChart.Data<Number, Number> data : dataPoints) {
+            series.getData().add(data);
+        }
         scatterChart.getData().add(series);
 
         // Show the chart
