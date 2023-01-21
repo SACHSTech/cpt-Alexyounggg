@@ -1,67 +1,58 @@
 package cpt;
 
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Test extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        // Define the x and y axis
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Three Point Makes");
+        yAxis.setLabel("Thre Point Percent");
+
+        // Create the line chart
+        ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+        scatterChart.setTitle("Data Plot");
+
+        // Create a data series to hold the data
+        XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
+
+        // Read data from csv file and add it to the data series
+        try {
+            File file = new File("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePointPercentEditted.csv\\");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] values = line.split(",");
+                dataSeries.getData().add(new XYChart.Data<>(Integer.parseInt(values[2]), Double.parseDouble(values[4])));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // Add the data series to the line chart
+        scatterChart.getData().add(dataSeries);
+
+        // Show the line chart
+        Scene scene = new Scene(scatterChart, 800, 600);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
     
-    
-
-  @Override
-  public void start(Stage stage) {
-
-    
-    // Set up x and y axes
-    NumberAxis xAxis = new NumberAxis();
-    xAxis.setLabel("Three point percent");
-    NumberAxis yAxis = new NumberAxis();
-    yAxis.setLabel("Three Point Makes");
-
-    // Create scatter chart
-    ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
-    scatterChart.setTitle("Three point percent vs Makes");
-
-    // Add data to chart
-    XYChart.Series<Number, Number> series = new XYChart.Series<>();
-
-
-    series.getData().add(new XYChart.Data<>(1, 2));
-    series.getData().add(new XYChart.Data<>(3, 4));
-    series.getData().add(new XYChart.Data<>(5, 6));
-    scatterChart.getData().add(series);
-
-    // Create buttons for sorting data
-    Button sortXButton = new Button("Sort by X");
-    sortXButton.setOnAction(e -> sortByX(scatterChart));
-    Button sortYButton = new Button("Sort by Y");
-    sortYButton.setOnAction(e -> sortByY(scatterChart));
-
-    // Create layout for buttons and chart
-    HBox layout = new HBox(sortXButton, sortYButton, scatterChart);
-
-    // Show the scene
-    stage.setScene(new Scene(layout));
-    stage.show();
-  }
-
-  private void sortByX(ScatterChart<Number, Number> scatterChart) {
-    // Sort data by x value
-    
-  }
-
-  private void sortByY(ScatterChart<Number, Number> scatterChart) {
-    // Sort data by y value
-  }
-
-  public static void main(String[] args) {
-    launch(args);
-  }
 }
