@@ -3,6 +3,8 @@ package cpt;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.NumberAxis;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import java.io.File;
@@ -45,6 +48,8 @@ public class Main extends Application {
 
         TableView<Players> table = new TableView<Players>();
 
+        TextField searchField = new TextField();
+
         
 TableColumn<Players, Integer> rankColumn = new TableColumn<>("Rank");
 rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -68,7 +73,27 @@ ObservableList<Players> dataTable = FXCollections.observableArrayList(yes);
     
 table.setItems(dataTable);
 
+// Add a listener to the search field to filter the table data
+searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+    FilteredList<Players> filteredData = new FilteredList<>(dataTable, p -> true);
+    filteredData.setPredicate(person -> {
+        // If the search field is empty, display all items
+        if (newValue == null || newValue.isEmpty()) {
+            return true;
+        }
+        String lowerCaseFilter = newValue.toLowerCase();
+        if (person.getName().toLowerCase().contains(lowerCaseFilter)) {
+            return true;
+        }
+        return false;
+    });
+    SortedList<Players> sortedData = new SortedList<>(filteredData);
+    table.setItems(sortedData);
+});
 
+
+        //Bar Graph
+        
         // Define the x and y axis
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -155,8 +180,14 @@ table.setItems(dataTable);
         spButton.getChildren().add(thirdButton);
         spButton.setAlignment(thirdButton, Pos.BOTTOM_CENTER);
 
+        HBox search = new HBox();
+        search.getChildren().add(searchField);
+        search.setAlignment(Pos.TOP_RIGHT);
+
+        
+
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(spLineChart, spButton, sprButton, sppButton);
+        vbox.getChildren().addAll(spLineChart, spButton, sprButton, sppButton, search);
 
         Scene scene  = new Scene(vbox,800,600);
               
