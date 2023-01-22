@@ -1,12 +1,17 @@
 package cpt;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +42,33 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        TableView<Players> table = new TableView<Players>();
+
+        
+TableColumn<Players, Integer> rankColumn = new TableColumn<>("Rank");
+rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
+
+TableColumn<Players, String> nameColumn = new TableColumn<>("Name");
+nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+TableColumn<Players, Integer> threesMadeColumn = new TableColumn<>("Threes Made");
+threesMadeColumn.setCellValueFactory(new PropertyValueFactory<>("threesMade"));
+
+TableColumn<Players, Integer> threesAttemptedColumn = new TableColumn<>("Threes Attempted");
+threesAttemptedColumn.setCellValueFactory(new PropertyValueFactory<>("threesAttempted"));
+
+TableColumn<Players, Double> threesPercentColumn = new TableColumn<>("Threes Percent");
+threesPercentColumn.setCellValueFactory(new PropertyValueFactory<>("threePercent"));
+
+table.getColumns().addAll(rankColumn, nameColumn, threesMadeColumn, threesAttemptedColumn, threesPercentColumn);
+
+
+ObservableList<Players> dataTable = FXCollections.observableArrayList(yes);
+    
+table.setItems(dataTable);
+
+
         // Define the x and y axis
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -72,35 +104,59 @@ public class Main extends Application {
         scatterChart.getData().add(dataSeries);
         newScatterChart.getData().add(newDataSeries);
 
+        scatterChart.setVisible(false);
         newScatterChart.setVisible(false);
 
-        scatterChart.setStyle("-fx-symbol-size: 0.001;");
+       
 
-        Button button = new Button("Show Another Graph");
+        Button secondButton = new Button("Graph 1");
+         secondButton.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+                scatterChart.setVisible(true);
+                newScatterChart.setVisible(false);
+                table.setVisible(false);
+            }
+        });
+
+        Button button = new Button("Graph 2");
          button.setOnAction(new EventHandler<ActionEvent>() {
              @Override
              public void handle(ActionEvent event) {
+            scatterChart.setVisible(false);
+            newScatterChart.setVisible(true);
+            table.setVisible(false);
+    }
+        });
 
-                if (scatterChart.isVisible()) {
-                    scatterChart.setVisible(false);
-                    newScatterChart.setVisible(true);
-                } else {
-                    scatterChart.setVisible(true);
-                    newScatterChart.setVisible(false);
-                }
-            }
-    
-     });
-        
+            
+     Button thirdButton = new Button("Table");
+     thirdButton.setOnAction(new EventHandler<ActionEvent>() {
+         @Override
+         public void handle(ActionEvent event) {
+            scatterChart.setVisible(false);
+            newScatterChart.setVisible(false);
+            table.setVisible(true);
+        }
+    });
+
         StackPane spLineChart = new StackPane();
-        spLineChart.getChildren().addAll(scatterChart, newScatterChart);
+        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table);
 
         StackPane spButton = new StackPane();
         spButton.getChildren().add(button);
-        spButton.setAlignment(button, Pos.BOTTOM_CENTER);
+        spButton.setAlignment(button, Pos.BOTTOM_RIGHT);
+
+        StackPane sprButton = new StackPane();
+        spButton.getChildren().add(secondButton);
+        spButton.setAlignment(secondButton, Pos.BOTTOM_LEFT);
+
+        StackPane sppButton = new StackPane();
+        spButton.getChildren().add(thirdButton);
+        spButton.setAlignment(thirdButton, Pos.BOTTOM_CENTER);
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(spLineChart, spButton);
+        vbox.getChildren().addAll(spLineChart, spButton, sprButton, sppButton);
 
         Scene scene  = new Scene(vbox,800,600);
               
