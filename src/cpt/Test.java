@@ -11,6 +11,9 @@ import javafx.scene.layout.StackPane;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class Test extends Application {
 
@@ -53,6 +56,43 @@ public class Test extends Application {
         Scene scene = new Scene(scatterChart, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+         // Create a button to display another graph
+         Button button = new Button("Show Another Graph");
+         button.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+                 // Define new x and y axis
+                 NumberAxis newXAxis = new NumberAxis();
+                 NumberAxis newYAxis = new NumberAxis();
+                 newXAxis.setLabel("Rebounds");
+                 newYAxis.setLabel("Assists");
+ 
+                 // Create a new scatter chart
+                 ScatterChart<Number, Number> newScatterChart = new ScatterChart<>(newXAxis, newYAxis);
+                 newScatterChart.setTitle("Another Data Plot");
+ 
+                 // Create a new data series to hold the new data
+                 XYChart.Series<Number, Number> newDataSeries = new XYChart.Series<>();
+ 
+                 // Read data from a new csv file and add it to the new data series
+                 try {
+                    File file = new File("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePointPercentEditted.csv\\");
+                    Scanner scanner = new Scanner(file);
+                    while (scanner.hasNextLine()) {
+                        String line = scanner.nextLine();
+                        String[] values = line.split(",");
+                        newDataSeries.getData().add(new XYChart.Data<>(Integer.parseInt(values[3]), Double.parseDouble(values[4])));
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+ 
+                  // Add the data series to the line chart
+                 newScatterChart.getData().add(newDataSeries);        
     }
-    
-}
+     });
+     }
+    }
+
+        
