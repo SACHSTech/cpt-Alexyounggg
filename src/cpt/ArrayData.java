@@ -5,22 +5,22 @@ import java.io.*;
 
 public class ArrayData {
 
-public String line = "";
-public int count = 0;
-public String csvSplitBy = ",";
-public ArrayList<Players> stats = new ArrayList<>();
-    
-    public void dataReader(){
+    ArrayList<Players> stats = new ArrayList<>();
+
+    public ArrayData(){
+
+ String line;
+ String csvSplitBy = ",";
+  
 
     try {
-BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePointPercentEditted.csv\\" )); 
+BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePoint.csv\\" )); 
 
     
 while ((line = reader.readLine()) != null) {
     String[] row = line.split(csvSplitBy);
 
-    if (count != 0){
-        for (int i = 0; i < row.length; i++){
+   
             int rank = Integer.parseInt(row[0]);
             String name = row [1];
             int threesMade = Integer.parseInt(row[2]);
@@ -29,10 +29,12 @@ while ((line = reader.readLine()) != null) {
             Players numbers = new Players (rank, name, threesMade, threesAttempted, threesPercent);
             stats.add(numbers);
 
-        }
+
+       
     }
-    count ++;
-}
+    reader.close();
+    
+
     }
     
     catch (Exception e){
@@ -42,14 +44,21 @@ while ((line = reader.readLine()) != null) {
  
     
     }
-    public int getLength(){
-        return stats.size();
-    }
 
-    public ArrayList<Players> getArray(){
-        return this.stats;
+    public ArrayList<Players> threePercent(){
+
+        ArrayList <Players> statsTwo = new ArrayList <Players>();
+
+        for (int i = 0; i < stats.size(); i++){
+            statsTwo.add(stats.get(i));
+
+        }
+
+        return statsTwo;
     }
+    
 }
+
 
 
 
