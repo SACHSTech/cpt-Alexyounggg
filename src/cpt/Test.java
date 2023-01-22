@@ -53,7 +53,7 @@ public class Test extends Application {
 
         // Read data from csv file and add it to the data series
         try {
-            File file = new File("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePointPercentEditted.csv\\");
+            File file = new File("C:\\Users\\Alex Young\\git\\cpt-Alexyounggg\\src\\cpt\\ThreePoint.csv\\");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -69,11 +69,6 @@ public class Test extends Application {
         scatterChart.getData().add(dataSeries);
         newScatterChart.getData().add(newDataSeries);
 
-        for (XYChart.Data<Number, Number> data : dataSeries.getData()) {
-            StackPane stackPane = (StackPane) data.getNode();
-            Label label = new Label(.getName());
-            stackPane.getChildren().add(label);
-        }
 
         label = new Label();
 
