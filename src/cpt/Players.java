@@ -18,7 +18,7 @@ public class Players {
         
     }
 
-    public int geRank() {
+    public int getRank() {
         return this.rank;
 
     }
