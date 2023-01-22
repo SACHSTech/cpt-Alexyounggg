@@ -7,6 +7,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -28,6 +31,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import cpt.ArrayData;
 
@@ -93,7 +98,65 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
 
         //Bar Graph
+
+        // Define the axes
+        CategoryAxis xBarAxis = new CategoryAxis();
+        xBarAxis.setLabel("Players");
+        NumberAxis yBarAxis = new NumberAxis();
+        yBarAxis.setLabel("Threes Made");
+
+        // Create a BarChart object
+        BarChart<String, Number> barChart = new BarChart<>(xBarAxis, yBarAxis);
+        barChart.setTitle("Three Points Made 2021-2022 Season");
+
+        // Create a series
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Threes Made");
+
+        // Add data to the series
+
+        for (int i = 0; i < yes.size(); i++){
+            series.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
+        }
+    
+
+        // Add the series to the chart
+        barChart.getData().add(series);
+
+        // Create checkboxes
+CheckBox top10Checkbox = new CheckBox("Top 10");
+
+// Add an event handler to the checkbox
+top10Checkbox.setOnAction(e -> {
+    if (top10Checkbox.isSelected()) {
         
+        
+        // Clear the data in the series
+        series.getData().clear();
+        
+        // Add only the top 10 data to the series
+        for (int i = 0; i < 10 && i < yes.size(); i++) {
+            series.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
+        }
+    } else {
+        // Clear the data in the series
+        series.getData().clear();
+        
+        // Add all the data to the series
+        for (int i = 0; i < yes.size(); i++) {
+            series.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
+        }
+    }
+});
+
+top10Checkbox.setVisible(false);
+
+
+
+        barChart.setVisible(false);
+
+
+
         // Define the x and y axis
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -141,6 +204,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 scatterChart.setVisible(true);
                 newScatterChart.setVisible(false);
                 table.setVisible(false);
+                barChart.setVisible(false);
+                top10Checkbox.setVisible(false);
             }
         });
 
@@ -151,6 +216,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             scatterChart.setVisible(false);
             newScatterChart.setVisible(true);
             table.setVisible(false);
+            barChart.setVisible(false);
+            top10Checkbox.setVisible(false);
     }
         });
 
@@ -162,23 +229,25 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             scatterChart.setVisible(false);
             newScatterChart.setVisible(false);
             table.setVisible(true);
+            barChart.setVisible(false);
+            top10Checkbox.setVisible(false);
         }
     });
 
+    Button fourthButton = new Button("Bar graph");
+     fourthButton.setOnAction(new EventHandler<ActionEvent>() {
+         @Override
+         public void handle(ActionEvent event) {
+            scatterChart.setVisible(false);
+            newScatterChart.setVisible(false);
+            table.setVisible(false);
+            barChart.setVisible(true);
+            top10Checkbox.setVisible(true);
+        }
+    });
         StackPane spLineChart = new StackPane();
-        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table);
+        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart);
 
-        StackPane spButton = new StackPane();
-        spButton.getChildren().add(button);
-        spButton.setAlignment(button, Pos.BOTTOM_RIGHT);
-
-        StackPane sprButton = new StackPane();
-        spButton.getChildren().add(secondButton);
-        spButton.setAlignment(secondButton, Pos.BOTTOM_LEFT);
-
-        StackPane sppButton = new StackPane();
-        spButton.getChildren().add(thirdButton);
-        spButton.setAlignment(thirdButton, Pos.BOTTOM_CENTER);
 
         HBox search = new HBox();
         search.getChildren().add(searchField);
@@ -187,7 +256,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(spLineChart, spButton, sprButton, sppButton, search);
+        vbox.getChildren().addAll(spLineChart, secondButton, button, thirdButton, fourthButton, search, top10Checkbox);
 
         Scene scene  = new Scene(vbox,800,600);
               
