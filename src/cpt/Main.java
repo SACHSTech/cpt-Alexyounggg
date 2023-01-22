@@ -14,6 +14,7 @@ import java.util.Scanner;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.input.MouseEvent;
@@ -64,18 +65,42 @@ public class Main extends Application {
 
         for (int i = 0; i < yes.size(); i++){
             dataSeries.getData().add(new XYChart.Data<>(yes.get(i).getThreesMade(), yes.get(i).getThreePercent()));
+            newDataSeries.getData().add(new XYChart.Data<>(yes.get(i).getThreesAttempted(), yes.get(i).getThreePercent()));
 
             
         }
         scatterChart.getData().add(dataSeries);
+        newScatterChart.getData().add(newDataSeries);
+
+        newScatterChart.setVisible(false);
 
         scatterChart.setStyle("-fx-symbol-size: 0.001;");
+
+        Button button = new Button("Show Another Graph");
+         button.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+
+                if (scatterChart.isVisible()) {
+                    scatterChart.setVisible(false);
+                    newScatterChart.setVisible(true);
+                } else {
+                    scatterChart.setVisible(true);
+                    newScatterChart.setVisible(false);
+                }
+            }
+    
+     });
         
         StackPane spLineChart = new StackPane();
-        spLineChart.getChildren().addAll(scatterChart);
+        spLineChart.getChildren().addAll(scatterChart, newScatterChart);
+
+        StackPane spButton = new StackPane();
+        spButton.getChildren().add(button);
+        spButton.setAlignment(button, Pos.BOTTOM_CENTER);
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(spLineChart);
+        vbox.getChildren().addAll(spLineChart, spButton);
 
         Scene scene  = new Scene(vbox,800,600);
               
