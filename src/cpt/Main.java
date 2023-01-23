@@ -256,7 +256,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
        
 
-        Button secondButton = new Button("Graph 1");
+        Button secondButton = new Button("Scatter Plot 1");
          secondButton.setOnAction(new EventHandler<ActionEvent>() {
              @Override
              public void handle(ActionEvent event) {
@@ -269,7 +269,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             }
         });
 
-        Button button = new Button("Graph 2");
+        Button button = new Button("Scatter Plot 2");
          button.setOnAction(new EventHandler<ActionEvent>() {
              @Override
              public void handle(ActionEvent event) {
@@ -306,6 +306,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             barChart.setVisible(true);
             topTenCheckbox.setVisible(true);
             topFiveCheckbox.setVisible(true);
+            barChartTwo.setVisible(false);
+            barChartThree.setVisible(false);
         }
     });
         StackPane spLineChart = new StackPane();
@@ -316,10 +318,12 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         search.getChildren().add(searchField);
         search.setAlignment(Pos.TOP_RIGHT);
 
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox);
         
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, topTenCheckbox, topFiveCheckbox);
+        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, hbox);
 
         Scene scene  = new Scene(vbox,800,600);
               
