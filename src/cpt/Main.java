@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -254,7 +255,58 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         scatterChart.setVisible(false);
         newScatterChart.setVisible(false);
 
-       
+        ObservableList<String> options = FXCollections.observableArrayList("Table", "Scatter Graph 1", "Scatter Graph 2", "Bar Graph");
+
+        // Create a ChoiceBox
+        ChoiceBox<String> choiceBox = new ChoiceBox<String>(options);
+
+        choiceBox.setValue("Table");
+
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("Table")){
+                scatterChart.setVisible(false);
+                newScatterChart.setVisible(false);
+                table.setVisible(true);
+                barChart.setVisible(false);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
+                topTenCheckbox.setVisible(false);
+                topFiveCheckbox.setVisible(false);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
+            }
+            else if (newValue.equals("Scatter Graph 1")) {
+                scatterChart.setVisible(true);
+                newScatterChart.setVisible(false);
+                table.setVisible(false);
+                barChart.setVisible(false);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
+                topTenCheckbox.setVisible(false);
+                topFiveCheckbox.setVisible(false);
+            } else if (newValue.equals("Scatter Graph 2")) {
+                scatterChart.setVisible(false);
+                newScatterChart.setVisible(true);
+                table.setVisible(false);
+                barChart.setVisible(false);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
+                topTenCheckbox.setVisible(false);
+                topFiveCheckbox.setVisible(false);
+            } else if (newValue.equals("Bar Graph")) {
+                scatterChart.setVisible(false);
+                newScatterChart.setVisible(false);
+                table.setVisible(false);
+                barChart.setVisible(true);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
+                topTenCheckbox.setVisible(true);
+                topFiveCheckbox.setVisible(true);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
+            }
+          
+        });
 
         Button secondButton = new Button("Scatter Plot 1");
          secondButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -264,6 +316,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 newScatterChart.setVisible(false);
                 table.setVisible(false);
                 barChart.setVisible(false);
+                barChartTwo.setVisible(false);
+                barChartThree.setVisible(false);
                 topTenCheckbox.setVisible(false);
                 topFiveCheckbox.setVisible(false);
             }
@@ -277,6 +331,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             newScatterChart.setVisible(true);
             table.setVisible(false);
             barChart.setVisible(false);
+            barChartTwo.setVisible(false);
+            barChartThree.setVisible(false);
             topTenCheckbox.setVisible(false);
             topFiveCheckbox.setVisible(false);
     }
@@ -291,6 +347,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             newScatterChart.setVisible(false);
             table.setVisible(true);
             barChart.setVisible(false);
+            barChartTwo.setVisible(false);
+            barChartThree.setVisible(false);
             topTenCheckbox.setVisible(false);
             topFiveCheckbox.setVisible(false);
         }
@@ -323,7 +381,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, hbox);
+        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, hbox, choiceBox);
 
         Scene scene  = new Scene(vbox,800,600);
               
