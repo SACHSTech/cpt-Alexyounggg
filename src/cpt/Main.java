@@ -52,18 +52,23 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        // Setting stage title
         primaryStage.setTitle("Best Three Point Shooters 2021-2022 Season");
 
+        // Creating table 
         TableView<Players> table = new TableView<Players>();
 
+        // Creating search bar
         TextField searchField = new TextField();
-
+        
+        
+    // Creating title for program
     label = new Label("Best shooters in 2021-2022 Season");
 
     label.setStyle("-fx-font-size: 30px; -fx-font-weight: bold;-fx-text-alignment: center;");
       
 
-        
+// Creating columsn for the table
 TableColumn<Players, Integer> rankColumn = new TableColumn<>("Rank");
 rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
 
@@ -82,6 +87,7 @@ threesPercentColumn.setCellValueFactory(new PropertyValueFactory<>("threePercent
 table.getColumns().addAll(rankColumn, nameColumn, threesMadeColumn, threesAttemptedColumn, threesPercentColumn);
 
 
+// Adding the data onto the table
 ObservableList<Players> dataTable = FXCollections.observableArrayList(yes);
     
 table.setItems(dataTable);
@@ -164,6 +170,10 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
   // Create checkboxes
   CheckBox topTenCheckbox = new CheckBox("Top 10");
  CheckBox topFiveCheckbox = new CheckBox("Top 5");
+ 
+ 
+
+
   // Add an event handler to the checkbox
       topTenCheckbox.setOnAction(e -> {
           if (topTenCheckbox.isSelected()) {
@@ -209,6 +219,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
  }
 });
 
+        // Making checkboxes invisible on default
         topTenCheckbox.setVisible(false);
         barChart.setVisible(false);
         barChartTwo.setVisible(false);
@@ -231,7 +242,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         xAxis.setUpperBound(300);   
     
 
-        // Create the line chart
+        // Create the scatter chart
         ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
         ScatterChart<Number, Number> newScatterChart = new ScatterChart<>(xxAxis, yyAxis);
         scatterChart.setTitle("Three Point Makes vs Percent");
@@ -249,11 +260,14 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
             
         }
+
+        // Adding data to scatter chart
         scatterChart.getData().add(dataSeries);
         newScatterChart.getData().add(newDataSeries);
 
         scatterChart.setVisible(false);
         newScatterChart.setVisible(false);
+
 
         ObservableList<String> options = FXCollections.observableArrayList("Table", "Scatter Graph 1", "Scatter Graph 2", "Bar Graph");
 
@@ -262,6 +276,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
         choiceBox.setValue("Table");
 
+        // Prompts for when choicebox is selected
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("Table")){
                 scatterChart.setVisible(false);
@@ -308,6 +323,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
           
         });
 
+        // Adding buttons 
         Button secondButton = new Button("Scatter Plot 1");
          secondButton.setOnAction(new EventHandler<ActionEvent>() {
              @Override
@@ -375,6 +391,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         HBox search = new HBox();
         search.getChildren().add(searchField);
         search.setAlignment(Pos.TOP_RIGHT);
+
+        
 
         HBox hbox = new HBox();
         hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox);
