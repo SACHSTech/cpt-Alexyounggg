@@ -104,56 +104,62 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         xBarAxis.setLabel("Players");
         NumberAxis yBarAxis = new NumberAxis();
         yBarAxis.setLabel("Threes Made");
+        CategoryAxis xBarAxisTwo = new CategoryAxis();
+        xBarAxis.setLabel("Players");
+        NumberAxis yBarAxisTwo = new NumberAxis();
+        yBarAxis.setLabel("Threes Made");
 
         // Create a BarChart object
         BarChart<String, Number> barChart = new BarChart<>(xBarAxis, yBarAxis);
+        BarChart<String, Number> barChartTwo = new BarChart<>(xBarAxisTwo, yBarAxisTwo);
         barChart.setTitle("Three Points Made 2021-2022 Season");
+        barChartTwo.setTitle("Three Points Made 2021-2022 Season");
 
         // Create a series
         XYChart.Series<String, Number> series = new XYChart.Series<>();
+        XYChart.Series<String, Number> seriesTwo = new XYChart.Series<>();
         series.setName("Threes Made");
+        seriesTwo.setName("Threes Made");
 
         // Add data to the series
 
         for (int i = 0; i < yes.size(); i++){
             series.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
         }
-    
+
+        for (int i = 0; i < 11; i++){
+            seriesTwo.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
+        }
+
+        
 
         // Add the series to the chart
         barChart.getData().add(series);
+        barChartTwo.getData().add(seriesTwo);
 
-        // Create checkboxes
-CheckBox top10Checkbox = new CheckBox("Top 10");
+        
 
-// Add an event handler to the checkbox
-top10Checkbox.setOnAction(e -> {
-    if (top10Checkbox.isSelected()) {
-        
-        
-        // Clear the data in the series
-        series.getData().clear();
-        
-        // Add only the top 10 data to the series
-        for (int i = 0; i < 10 && i < yes.size(); i++) {
-            series.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
-        }
-    } else {
-        // Clear the data in the series
-        series.getData().clear();
-        
-        // Add all the data to the series
-        for (int i = 0; i < yes.size(); i++) {
-            series.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
-        }
-    }
+  // Create checkboxes
+  CheckBox top10Checkbox = new CheckBox("Top 10");
+  // Add an event handler to the checkbox
+      top10Checkbox.setOnAction(e -> {
+          if (top10Checkbox.isSelected()) {
+      
+      
+      barChartTwo.setVisible(true);
+      barChart.setVisible(false);
+  } 
+  
+  else {
+      barChartTwo.setVisible(false);
+      barChart.setVisible(true);
+      
+  }
 });
 
-top10Checkbox.setVisible(false);
-
-
-
+        top10Checkbox.setVisible(false);
         barChart.setVisible(false);
+        barChartTwo.setVisible(false);
 
 
 
@@ -246,7 +252,7 @@ top10Checkbox.setVisible(false);
         }
     });
         StackPane spLineChart = new StackPane();
-        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart);
+        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart, barChartTwo);
 
 
         HBox search = new HBox();
