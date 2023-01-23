@@ -162,6 +162,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
   // Create checkboxes
   CheckBox topTenCheckbox = new CheckBox("Top 10");
+ CheckBox topFiveCheckbox = new CheckBox("Top 5");
   // Add an event handler to the checkbox
       topTenCheckbox.setOnAction(e -> {
           if (topTenCheckbox.isSelected()) {
@@ -169,19 +170,22 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       
       barChartTwo.setVisible(true);
       barChart.setVisible(false);
-      barChart.setVisible(false);
+      barChartThree.setVisible(false);
+
+      if(topFiveCheckbox.isSelected()){
+        topFiveCheckbox.setSelected(false);
+      }
   } 
   
   else {
       barChartTwo.setVisible(false);
       barChart.setVisible(true);
-      barChart.setVisible(false);
+      barChartThree.setVisible(false);
       
   }
 });
 
- // Create checkboxes
- CheckBox topFiveCheckbox = new CheckBox("Top 5");
+ 
  // Add an event handler to the checkbox
      topFiveCheckbox.setOnAction(e -> {
          if (topFiveCheckbox.isSelected()) {
@@ -190,12 +194,16 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
      barChartTwo.setVisible(false);
      barChart.setVisible(false);
      barChartThree.setVisible(true);
+
+     if(topTenCheckbox.isSelected()){
+        topFiveCheckbox.setSelected(false);
+      }
  } 
  
  else {
      barChartTwo.setVisible(false);
      barChart.setVisible(true);
-     barChart.setVisible(false);
+     barChartThree.setVisible(false);
      
  }
 });
