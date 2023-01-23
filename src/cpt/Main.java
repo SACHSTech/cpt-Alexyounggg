@@ -51,9 +51,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        primaryStage.setTitle("Best Three Point Shooters 2021-2022 Season");
+
         TableView<Players> table = new TableView<Players>();
 
         TextField searchField = new TextField();
+
+    label = new Label("Best shooters in 2021-2022 Season");
+
+    label.setStyle("-fx-font-size: 30px; -fx-font-weight: bold;-fx-text-alignment: center;");
+      
 
         
 TableColumn<Players, Integer> rankColumn = new TableColumn<>("Rank");
@@ -262,7 +269,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(spLineChart, secondButton, button, thirdButton, fourthButton, search, top10Checkbox);
+        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, top10Checkbox);
 
         Scene scene  = new Scene(vbox,800,600);
               
