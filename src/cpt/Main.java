@@ -115,18 +115,27 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         xBarAxis.setLabel("Players");
         NumberAxis yBarAxisTwo = new NumberAxis();
         yBarAxis.setLabel("Threes Made");
+        CategoryAxis xBarAxisThree = new CategoryAxis();
+        xBarAxis.setLabel("Players");
+        NumberAxis yBarAxisThree = new NumberAxis();
+        yBarAxis.setLabel("Threes Made");
 
         // Create a BarChart object
         BarChart<String, Number> barChart = new BarChart<>(xBarAxis, yBarAxis);
         BarChart<String, Number> barChartTwo = new BarChart<>(xBarAxisTwo, yBarAxisTwo);
+        BarChart<String, Number> barChartThree = new BarChart<>(xBarAxisThree, yBarAxisThree);
+        
         barChart.setTitle("Three Points Made 2021-2022 Season");
         barChartTwo.setTitle("Three Points Made 2021-2022 Season");
+        barChartThree.setTitle("Three Points Made 2021-2022 Season");
 
         // Create a series
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         XYChart.Series<String, Number> seriesTwo = new XYChart.Series<>();
+        XYChart.Series<String, Number> seriesThree = new XYChart.Series<>();
         series.setName("Threes Made");
         seriesTwo.setName("Threes Made");
+        seriesThree.setName("Threes Made");
 
         // Add data to the series
 
@@ -138,35 +147,64 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             seriesTwo.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
         }
 
+        for (int i = 0; i < 5; i++){
+            seriesThree.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
+        }
+
         
 
         // Add the series to the chart
         barChart.getData().add(series);
         barChartTwo.getData().add(seriesTwo);
+        barChartThree.getData().add(seriesThree);
 
         
 
   // Create checkboxes
-  CheckBox top10Checkbox = new CheckBox("Top 10");
+  CheckBox topTenCheckbox = new CheckBox("Top 10");
   // Add an event handler to the checkbox
-      top10Checkbox.setOnAction(e -> {
-          if (top10Checkbox.isSelected()) {
+      topTenCheckbox.setOnAction(e -> {
+          if (topTenCheckbox.isSelected()) {
       
       
       barChartTwo.setVisible(true);
+      barChart.setVisible(false);
       barChart.setVisible(false);
   } 
   
   else {
       barChartTwo.setVisible(false);
       barChart.setVisible(true);
+      barChart.setVisible(false);
       
   }
 });
 
-        top10Checkbox.setVisible(false);
+ // Create checkboxes
+ CheckBox topFiveCheckbox = new CheckBox("Top 5");
+ // Add an event handler to the checkbox
+     topFiveCheckbox.setOnAction(e -> {
+         if (topFiveCheckbox.isSelected()) {
+     
+     
+     barChartTwo.setVisible(false);
+     barChart.setVisible(false);
+     barChartThree.setVisible(true);
+ } 
+ 
+ else {
+     barChartTwo.setVisible(false);
+     barChart.setVisible(true);
+     barChart.setVisible(false);
+     
+ }
+});
+
+        topTenCheckbox.setVisible(false);
         barChart.setVisible(false);
         barChartTwo.setVisible(false);
+        barChartThree.setVisible(false);
+        topFiveCheckbox.setVisible(false);
 
 
 
@@ -218,7 +256,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 newScatterChart.setVisible(false);
                 table.setVisible(false);
                 barChart.setVisible(false);
-                top10Checkbox.setVisible(false);
+                topTenCheckbox.setVisible(false);
+                topFiveCheckbox.setVisible(false);
             }
         });
 
@@ -230,7 +269,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             newScatterChart.setVisible(true);
             table.setVisible(false);
             barChart.setVisible(false);
-            top10Checkbox.setVisible(false);
+            topTenCheckbox.setVisible(false);
+            topFiveCheckbox.setVisible(false);
     }
         });
 
@@ -243,7 +283,8 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             newScatterChart.setVisible(false);
             table.setVisible(true);
             barChart.setVisible(false);
-            top10Checkbox.setVisible(false);
+            topTenCheckbox.setVisible(false);
+            topFiveCheckbox.setVisible(false);
         }
     });
 
@@ -255,11 +296,12 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             newScatterChart.setVisible(false);
             table.setVisible(false);
             barChart.setVisible(true);
-            top10Checkbox.setVisible(true);
+            topTenCheckbox.setVisible(true);
+            topFiveCheckbox.setVisible(true);
         }
     });
         StackPane spLineChart = new StackPane();
-        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart, barChartTwo);
+        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart, barChartTwo, barChartThree);
 
 
         HBox search = new HBox();
@@ -269,7 +311,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, top10Checkbox);
+        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, topTenCheckbox, topFiveCheckbox);
 
         Scene scene  = new Scene(vbox,800,600);
               
