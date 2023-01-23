@@ -196,7 +196,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
      barChartThree.setVisible(true);
 
      if(topTenCheckbox.isSelected()){
-        topFiveCheckbox.setSelected(false);
+        topTenCheckbox.setSelected(false);
       }
  } 
  
