@@ -5,6 +5,11 @@ import java.util.Arrays;
 
 public class Sorter {
     
+    /**
+     * 
+     * @param reverseData - array
+     * @return sorted array
+     */
     public int[] mergeSort(int[] reverseData)
     {
         int [] temp = new int[reverseData.length];
@@ -14,6 +19,14 @@ public class Sorter {
         return temp;
     }
 
+    /**
+     * 
+     * Arraylist is split as many times as possible and then sorted
+     * @param arr
+     * @param from
+     * @param to
+     * @param temp
+     */
     private static void mergeSortHelper(int[] arr, int from, int to, int[] temp)
     {
         // If the array length is greater than 1
@@ -27,6 +40,15 @@ public class Sorter {
         }
     }
    
+    /**
+     * Orders the array
+     * 
+     * @param arr
+     * @param from
+     * @param mid
+     * @param to
+     * @param temp
+     */
     private static void merge(int[] arr, int from, int mid, int to, int[] temp)
     {
         int i = from;       // track left array position
@@ -76,20 +98,6 @@ public class Sorter {
  
     
         
-        public static void main(String[] args) {
-            ArrayData arrayDataTwo = new ArrayData();
-            ArrayList<Players> no = arrayDataTwo.threePercent();
-
-            int[] reverseData = new int [no.size()];
-
-            for (int i = 0; i < no.size(); i++){
-                reverseData[i] = no.get(i).getThreesMade();
-            }
-
-    
-    
-    
-     
-    }
+       
 }
 

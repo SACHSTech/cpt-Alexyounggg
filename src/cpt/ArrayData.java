@@ -8,6 +8,9 @@ public class ArrayData {
 
     ArrayList<Players> stats = new ArrayList<>();
 
+    /**
+     * Allows program to reader csv file
+     */
     public ArrayData(){
 
  String line;
@@ -46,6 +49,10 @@ while ((line = reader.readLine()) != null) {
     
     }
 
+    /**
+     * Gets the array of data points
+     * @return array of shooting data
+     */
     public ArrayList<Players> threePercent(){
 
         ArrayList <Players> statsTwo = new ArrayList <Players>();
@@ -58,6 +65,10 @@ while ((line = reader.readLine()) != null) {
         return statsTwo;
     }
 
+    /**
+     * Gets the array of data points reversed
+     * @return array of shooting data
+     */
     public ArrayList<Players> reverseThreePercent(){
 
         ArrayList <Players> statsThree = new ArrayList <Players>();
