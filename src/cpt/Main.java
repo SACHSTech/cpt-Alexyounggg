@@ -18,9 +18,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -29,14 +26,12 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.input.MouseEvent;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 
-import cpt.ArrayData;
+
+
 
 public class Main extends Application {
 
@@ -128,7 +123,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
         sorter.mergeSort(reverseShooting);
 
-        yes(reverseShooting);
+       
 
 
         // Define the axes
@@ -237,12 +232,12 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 });
 
 topFiveCheckbox.setOnAction(e -> {
-    if (topTenCheckbox.isSelected()) {
+    if (topFiveCheckbox.isSelected()) {
 
 
-barChartTwo.setVisible(true);
+barChartTwo.setVisible(false);
 barChart.setVisible(false);
-barChartThree.setVisible(false);
+barChartThree.setVisible(true);
 barChartFour.setVisible(false);
 
 if(topTenCheckbox.isSelected()){
@@ -480,10 +475,14 @@ barChartFour.setVisible(false);
 
         HBox hbox = new HBox();
         hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox, reverseCheckbox);
+
+        HBox choice = new HBox();
+        choice.getChildren().add(choiceBox);
+        choice.setAlignment(Pos.TOP_RIGHT);
         
 
         VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, hbox, choiceBox);
+        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, hbox, choice);
 
         Scene scene  = new Scene(vbox,800,600);
               
@@ -492,7 +491,5 @@ barChartFour.setVisible(false);
         primaryStage.show();
 }
 
-    private void yes(int[] reverseShooting2) {
-        System.out.println(Arrays.toString(reverseShooting2));
-    }
+    
 }
