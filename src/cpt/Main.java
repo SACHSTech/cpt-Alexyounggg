@@ -41,10 +41,11 @@ import cpt.ArrayData;
 public class Main extends Application {
 
     ArrayData arrayData = new ArrayData();
+    ArrayData arrayDataTwo = new ArrayData();
     Sorter sorter = new Sorter();
 
     ArrayList<Players> yes = arrayData.threePercent();
-    ArrayList<Players> reverse = arrayData.reverseThreePercent();
+    ArrayList<Players> reverse = arrayDataTwo.reverseThreePercent();
     
     int [] reverseShooting = new int [yes.size()];
     
@@ -186,7 +187,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         }
 
         for (int i = 0; i < yes.size(); i++){
-            seriesFour.getData().add(new XYChart.Data<>(yes.get(i).getName(), reverseShooting[i]));
+            seriesFour.getData().add(new XYChart.Data<>(reverse.get(i).getName(), reverseShooting[i]));
         }
 
         
