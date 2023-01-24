@@ -13,6 +13,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -288,13 +290,11 @@ barChartFour.setVisible(false);
 });
 
         // Making checkboxes invisible on default
-        topTenCheckbox.setVisible(false);
-        barChart.setVisible(false);
+        barChart.setVisible(true);
         barChartTwo.setVisible(false);
         barChartThree.setVisible(false);
         barChartFour.setVisible(false);
-        topFiveCheckbox.setVisible(false);
-        reverseCheckbox.setVisible(false);
+        
 
 
 
@@ -335,8 +335,10 @@ barChartFour.setVisible(false);
         scatterChart.getData().add(dataSeries);
         newScatterChart.getData().add(newDataSeries);
 
-        scatterChart.setVisible(false);
+        scatterChart.setVisible(true);
         newScatterChart.setVisible(false);
+        
+        
 
 
         ObservableList<String> options = FXCollections.observableArrayList("Table", "Scatter Graph 1", "Scatter Graph 2", "Bar Graph");
@@ -399,6 +401,7 @@ barChartFour.setVisible(false);
           
         });
 
+        
         // Adding buttons 
         Button secondButton = new Button("Scatter Plot 1");
          secondButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -406,13 +409,7 @@ barChartFour.setVisible(false);
              public void handle(ActionEvent event) {
                 scatterChart.setVisible(true);
                 newScatterChart.setVisible(false);
-                table.setVisible(false);
-                barChart.setVisible(false);
-                barChartTwo.setVisible(false);
-                barChartThree.setVisible(false);
-                topTenCheckbox.setVisible(false);
-                topFiveCheckbox.setVisible(false);
-                reverseCheckbox.setVisible(false);
+                
             }
         });
 
@@ -422,13 +419,7 @@ barChartFour.setVisible(false);
              public void handle(ActionEvent event) {
             scatterChart.setVisible(false);
             newScatterChart.setVisible(true);
-            table.setVisible(false);
-            barChart.setVisible(false);
-            barChartTwo.setVisible(false);
-            barChartThree.setVisible(false);
-            topTenCheckbox.setVisible(false);
-            topFiveCheckbox.setVisible(false);
-            reverseCheckbox.setVisible(false);
+            
     }
         });
 
@@ -464,28 +455,53 @@ barChartFour.setVisible(false);
             barChartThree.setVisible(false);
         }
     });
+    
+    HBox search = new HBox();
+    search.getChildren().add(searchField);
+    search.setAlignment(Pos.TOP_RIGHT);
+
+    StackPane stackPaneScatter = new StackPane();
+    stackPaneScatter.getChildren().addAll(scatterChart, newScatterChart);
+
+    StackPane stackPaneBar = new StackPane();
+    stackPaneBar.getChildren().addAll(barChart, barChartTwo, barChartThree, barChartFour);
+
+    HBox hbox = new HBox();
+    hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox, reverseCheckbox);
+
+    /* 
         StackPane spLineChart = new StackPane();
         spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart, barChartTwo, barChartThree, barChartFour);
+        */
 
 
-        HBox search = new HBox();
-        search.getChildren().add(searchField);
-        search.setAlignment(Pos.TOP_RIGHT);
-
+        TabPane tabPane = new TabPane();
         
+        // First tab; table
+        Tab tableTab = new Tab("Table");
 
-        HBox hbox = new HBox();
-        hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox, reverseCheckbox);
+        tableTab.setContent(new VBox(table, search));
+
+        // Second tab; scatter chart
+        Tab scatterTab = new Tab("Scatter Chart");
+        scatterTab.setContent(new VBox(stackPaneScatter, secondButton, button));
+
+        Tab barTab = new Tab ("Bar Graph");
+        barTab.setContent(new VBox(stackPaneBar, hbox));
+
+        // Both tabs
+        tabPane.getTabs().addAll(tableTab, scatterTab, barTab);
+
 
         HBox choice = new HBox();
         choice.getChildren().add(choiceBox);
         choice.setAlignment(Pos.TOP_RIGHT);
-        
+    
 
-        VBox vbox = new VBox(5);
-        vbox.getChildren().addAll(search, label, spLineChart, secondButton, button, thirdButton, fourthButton, hbox, choice);
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(search, label, tabPane, choice);
 
-        Scene scene  = new Scene(vbox,800,600);
+        Scene scene  = new Scene(vbox, 800, 600);
               
 
         primaryStage.setScene(scene);
