@@ -64,6 +64,7 @@ public class Main extends Application {
 
         // Creating search bar
         TextField searchField = new TextField();
+        searchField.setPromptText("Enter player");  
         
         
     // Creating title for program
