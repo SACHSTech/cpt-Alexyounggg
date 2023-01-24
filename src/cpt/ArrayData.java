@@ -62,7 +62,7 @@ while ((line = reader.readLine()) != null) {
 
         ArrayList <Players> statsThree = new ArrayList <Players>();
 
-        for (int i = stats.size() - 1; i < stats.size(); i--){
+        for (int i = stats.size(); i < stats.size(); i--){
             statsThree.add(stats.get(i));
 
         }

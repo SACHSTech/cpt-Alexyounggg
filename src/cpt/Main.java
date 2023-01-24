@@ -32,6 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -126,7 +127,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
         sorter.mergeSort(reverseShooting);
 
-        
+        yes(reverseShooting);
 
 
         // Define the axes
@@ -185,7 +186,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         }
 
         for (int i = 0; i < yes.size(); i++){
-            seriesFour.getData().add(new XYChart.Data<>(reverse.get(i).getName(), reverseShooting[i]));
+            seriesFour.getData().add(new XYChart.Data<>(yes.get(i).getName(), reverseShooting[i]));
         }
 
         
@@ -234,7 +235,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
   }
 });
 
-topTenCheckbox.setOnAction(e -> {
+topFiveCheckbox.setOnAction(e -> {
     if (topTenCheckbox.isSelected()) {
 
 
@@ -243,8 +244,8 @@ barChart.setVisible(false);
 barChartThree.setVisible(false);
 barChartFour.setVisible(false);
 
-if(topFiveCheckbox.isSelected()){
-  topFiveCheckbox.setSelected(false);
+if(topTenCheckbox.isSelected()){
+  topTenCheckbox.setSelected(false);
 }
 
 if(reverseCheckbox.isSelected()){
@@ -361,6 +362,7 @@ barChartFour.setVisible(false);
                 topFiveCheckbox.setVisible(false);
                 barChartTwo.setVisible(false);
                 barChartThree.setVisible(false);
+                reverseCheckbox.setVisible(false);
             }
             else if (newValue.equals("Scatter Graph 1")) {
                 scatterChart.setVisible(true);
@@ -371,6 +373,8 @@ barChartFour.setVisible(false);
                 barChartThree.setVisible(false);
                 topTenCheckbox.setVisible(false);
                 topFiveCheckbox.setVisible(false);
+                reverseCheckbox.setVisible(false);
+
             } else if (newValue.equals("Scatter Graph 2")) {
                 scatterChart.setVisible(false);
                 newScatterChart.setVisible(true);
@@ -380,6 +384,8 @@ barChartFour.setVisible(false);
                 barChartThree.setVisible(false);
                 topTenCheckbox.setVisible(false);
                 topFiveCheckbox.setVisible(false);
+                reverseCheckbox.setVisible(false);
+
             } else if (newValue.equals("Bar Graph")) {
                 scatterChart.setVisible(false);
                 newScatterChart.setVisible(false);
@@ -391,6 +397,7 @@ barChartFour.setVisible(false);
                 topFiveCheckbox.setVisible(true);
                 barChartTwo.setVisible(false);
                 barChartThree.setVisible(false);
+                reverseCheckbox.setVisible(true);
             }
           
         });
@@ -408,6 +415,7 @@ barChartFour.setVisible(false);
                 barChartThree.setVisible(false);
                 topTenCheckbox.setVisible(false);
                 topFiveCheckbox.setVisible(false);
+                reverseCheckbox.setVisible(false);
             }
         });
 
@@ -423,6 +431,7 @@ barChartFour.setVisible(false);
             barChartThree.setVisible(false);
             topTenCheckbox.setVisible(false);
             topFiveCheckbox.setVisible(false);
+            reverseCheckbox.setVisible(false);
     }
         });
 
@@ -439,6 +448,7 @@ barChartFour.setVisible(false);
             barChartThree.setVisible(false);
             topTenCheckbox.setVisible(false);
             topFiveCheckbox.setVisible(false);
+            reverseCheckbox.setVisible(false);
         }
     });
 
@@ -452,6 +462,7 @@ barChartFour.setVisible(false);
             barChart.setVisible(true);
             topTenCheckbox.setVisible(true);
             topFiveCheckbox.setVisible(true);
+            reverseCheckbox.setVisible(true);
             barChartTwo.setVisible(false);
             barChartThree.setVisible(false);
         }
@@ -479,4 +490,8 @@ barChartFour.setVisible(false);
         primaryStage.setScene(scene);
         primaryStage.show();
 }
+
+    private void yes(int[] reverseShooting2) {
+        System.out.println(Arrays.toString(reverseShooting2));
+    }
 }
