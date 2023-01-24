@@ -40,8 +40,15 @@ import cpt.ArrayData;
 public class Main extends Application {
 
     ArrayData arrayData = new ArrayData();
+    Sorter sorter = new Sorter();
 
     ArrayList<Players> yes = arrayData.threePercent();
+    ArrayList<Players> reverse = arrayData.reverseThreePercent();
+    
+    int [] reverseShooting = new int [yes.size()];
+    
+    
+
 
     private Label label;
 
@@ -113,6 +120,15 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
         //Bar Graph
 
+        for (int i = 0; i < yes.size(); i++){
+            reverseShooting[i] = yes.get(i).getThreesMade();
+        }
+
+        sorter.mergeSort(reverseShooting);
+
+        
+
+
         // Define the axes
         CategoryAxis xBarAxis = new CategoryAxis();
         xBarAxis.setLabel("Players");
@@ -126,23 +142,33 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         xBarAxis.setLabel("Players");
         NumberAxis yBarAxisThree = new NumberAxis();
         yBarAxis.setLabel("Threes Made");
+        CategoryAxis xBarAxisFour = new CategoryAxis();
+        xBarAxis.setLabel("Players");
+        NumberAxis yBarAxisFour = new NumberAxis();
+        yBarAxis.setLabel("Threes Made");
+
 
         // Create a BarChart object
         BarChart<String, Number> barChart = new BarChart<>(xBarAxis, yBarAxis);
         BarChart<String, Number> barChartTwo = new BarChart<>(xBarAxisTwo, yBarAxisTwo);
         BarChart<String, Number> barChartThree = new BarChart<>(xBarAxisThree, yBarAxisThree);
+        BarChart<String, Number> barChartFour = new BarChart<>(xBarAxisFour, yBarAxisFour);
+
         
         barChart.setTitle("Three Points Made 2021-2022 Season");
         barChartTwo.setTitle("Three Points Made 2021-2022 Season");
         barChartThree.setTitle("Three Points Made 2021-2022 Season");
+        barChartFour.setTitle("Three Points Made 2021-2022 Season");
 
         // Create a series
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         XYChart.Series<String, Number> seriesTwo = new XYChart.Series<>();
         XYChart.Series<String, Number> seriesThree = new XYChart.Series<>();
+        XYChart.Series<String, Number> seriesFour = new XYChart.Series<>();
         series.setName("Threes Made");
         seriesTwo.setName("Threes Made");
         seriesThree.setName("Threes Made");
+        seriesFour.setName("Threes Made");
 
         // Add data to the series
 
@@ -158,18 +184,24 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             seriesThree.getData().add(new XYChart.Data<>(yes.get(i).getName(), yes.get(i).getThreesMade()));
         }
 
+        for (int i = 0; i < yes.size(); i++){
+            seriesFour.getData().add(new XYChart.Data<>(reverse.get(i).getName(), reverseShooting[i]));
+        }
+
         
 
         // Add the series to the chart
         barChart.getData().add(series);
         barChartTwo.getData().add(seriesTwo);
         barChartThree.getData().add(seriesThree);
+        barChartFour.getData().add(seriesFour);
 
         
 
   // Create checkboxes
   CheckBox topTenCheckbox = new CheckBox("Top 10");
  CheckBox topFiveCheckbox = new CheckBox("Top 5");
+ CheckBox reverseCheckbox = new CheckBox ("Reverse");
  
  
 
@@ -182,41 +214,79 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       barChartTwo.setVisible(true);
       barChart.setVisible(false);
       barChartThree.setVisible(false);
+      barChartFour.setVisible(false);
 
       if(topFiveCheckbox.isSelected()){
         topFiveCheckbox.setSelected(false);
       }
+
+      if(reverseCheckbox.isSelected()){
+        reverseCheckbox.setSelected(false);
+    }
   } 
   
   else {
       barChartTwo.setVisible(false);
       barChart.setVisible(true);
       barChartThree.setVisible(false);
+      barChartFour.setVisible(false);
       
   }
 });
 
- 
- // Add an event handler to the checkbox
-     topFiveCheckbox.setOnAction(e -> {
-         if (topFiveCheckbox.isSelected()) {
-     
-     
-     barChartTwo.setVisible(false);
-     barChart.setVisible(false);
-     barChartThree.setVisible(true);
+topTenCheckbox.setOnAction(e -> {
+    if (topTenCheckbox.isSelected()) {
 
-     if(topTenCheckbox.isSelected()){
-        topTenCheckbox.setSelected(false);
-      }
- } 
- 
- else {
-     barChartTwo.setVisible(false);
-     barChart.setVisible(true);
-     barChartThree.setVisible(false);
-     
+
+barChartTwo.setVisible(true);
+barChart.setVisible(false);
+barChartThree.setVisible(false);
+barChartFour.setVisible(false);
+
+if(topFiveCheckbox.isSelected()){
+  topFiveCheckbox.setSelected(false);
+}
+
+if(reverseCheckbox.isSelected()){
+    reverseCheckbox.setSelected(false);
+}
+} 
+
+else {
+barChartTwo.setVisible(false);
+barChart.setVisible(true);
+barChartThree.setVisible(false);
+barChartFour.setVisible(false);
+
+}
+});
+
+// Add an event handler to the checkbox
+reverseCheckbox.setOnAction(e -> {
+    if (reverseCheckbox.isSelected()) {
+
+
+barChartTwo.setVisible(false);
+barChart.setVisible(false);
+barChartThree.setVisible(false);
+barChartFour.setVisible(true);
+
+if(topTenCheckbox.isSelected()){
+   topTenCheckbox.setSelected(false);
  }
+
+ if(topFiveCheckbox.isSelected()){
+   topFiveCheckbox.setSelected(false);
+ }
+} 
+
+else {
+barChartTwo.setVisible(false);
+barChart.setVisible(true);
+barChartThree.setVisible(false);
+barChartFour.setVisible(false);
+
+}
 });
 
         // Making checkboxes invisible on default
@@ -224,7 +294,9 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         barChart.setVisible(false);
         barChartTwo.setVisible(false);
         barChartThree.setVisible(false);
+        barChartFour.setVisible(false);
         topFiveCheckbox.setVisible(false);
+        reverseCheckbox.setVisible(false);
 
 
 
@@ -385,7 +457,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         }
     });
         StackPane spLineChart = new StackPane();
-        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart, barChartTwo, barChartThree);
+        spLineChart.getChildren().addAll(scatterChart, newScatterChart, table, barChart, barChartTwo, barChartThree, barChartFour);
 
 
         HBox search = new HBox();
@@ -395,7 +467,7 @@ searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         
 
         HBox hbox = new HBox();
-        hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox);
+        hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox, reverseCheckbox);
         
 
         VBox vbox = new VBox(5);

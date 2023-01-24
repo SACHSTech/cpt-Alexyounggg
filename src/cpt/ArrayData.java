@@ -57,6 +57,18 @@ while ((line = reader.readLine()) != null) {
 
         return statsTwo;
     }
+
+    public ArrayList<Players> reverseThreePercent(){
+
+        ArrayList <Players> statsThree = new ArrayList <Players>();
+
+        for (int i = stats.size() - 1; i < stats.size(); i--){
+            statsThree.add(stats.get(i));
+
+        }
+
+        return statsThree;
+    }
     
 }
 

@@ -5,11 +5,13 @@ import java.util.Arrays;
 
 public class Sorter {
     
-    public static void mergeSort(int[] reverseData)
+    public int[] mergeSort(int[] reverseData)
     {
         int [] temp = new int[reverseData.length];
         
         mergeSortHelper(reverseData, 0, reverseData.length - 1, temp);
+
+        return temp;
     }
 
     private static void mergeSortHelper(int[] arr, int from, int to, int[] temp)
@@ -21,7 +23,7 @@ public class Sorter {
             mergeSortHelper(arr, from, mid, temp);  //mergesort the first half
             mergeSortHelper(arr, mid + 1, to, temp); // mergesort the second half
             merge(arr, from, mid, to, temp); //merge
-            
+         
         }
     }
    
@@ -81,12 +83,8 @@ public class Sorter {
             int[] reverseData = new int [no.size()];
 
             for (int i = 0; i < no.size(); i++){
-                reverseData[i] = no.get(i).getThreesAttempted();
+                reverseData[i] = no.get(i).getThreesMade();
             }
-
-            mergeSort(reverseData);
-
-            System.out.println(Arrays.toString(reverseData));
 
     
     
