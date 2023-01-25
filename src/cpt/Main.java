@@ -341,29 +341,16 @@ barChartFour.setVisible(false);
         
 
 
-        ObservableList<String> options = FXCollections.observableArrayList("Table", "Scatter Graph 1", "Scatter Graph 2", "Bar Graph");
+        ObservableList<String> options = FXCollections.observableArrayList("Scatter Graph 1", "Scatter Graph 2");
 
         // Create a ChoiceBox
         ChoiceBox<String> choiceBox = new ChoiceBox<String>(options);
 
-        choiceBox.setValue("Table");
+        choiceBox.setValue("Select a Scatter Graph");
 
         // Prompts for when choicebox is selected
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("Table")){
-                scatterChart.setVisible(false);
-                newScatterChart.setVisible(false);
-                table.setVisible(true);
-                barChart.setVisible(false);
-                barChartTwo.setVisible(false);
-                barChartThree.setVisible(false);
-                topTenCheckbox.setVisible(false);
-                topFiveCheckbox.setVisible(false);
-                barChartTwo.setVisible(false);
-                barChartThree.setVisible(false);
-                reverseCheckbox.setVisible(false);
-            }
-            else if (newValue.equals("Scatter Graph 1")) {
+            if(newValue.equals("Scatter Graph 1")) {
                 scatterChart.setVisible(true);
                 newScatterChart.setVisible(false);
                 table.setVisible(false);
@@ -385,18 +372,6 @@ barChartFour.setVisible(false);
                 topFiveCheckbox.setVisible(false);
                 reverseCheckbox.setVisible(false);
 
-            } else if (newValue.equals("Bar Graph")) {
-                scatterChart.setVisible(false);
-                newScatterChart.setVisible(false);
-                table.setVisible(false);
-                barChart.setVisible(true);
-                barChartTwo.setVisible(false);
-                barChartThree.setVisible(false);
-                topTenCheckbox.setVisible(true);
-                topFiveCheckbox.setVisible(true);
-                barChartTwo.setVisible(false);
-                barChartThree.setVisible(false);
-                reverseCheckbox.setVisible(true);
             }
           
         });
@@ -422,39 +397,6 @@ barChartFour.setVisible(false);
             
     }
         });
-
-            
-     Button thirdButton = new Button("Table");
-     thirdButton.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent event) {
-            scatterChart.setVisible(false);
-            newScatterChart.setVisible(false);
-            table.setVisible(true);
-            barChart.setVisible(false);
-            barChartTwo.setVisible(false);
-            barChartThree.setVisible(false);
-            topTenCheckbox.setVisible(false);
-            topFiveCheckbox.setVisible(false);
-            reverseCheckbox.setVisible(false);
-        }
-    });
-
-    Button fourthButton = new Button("Bar graph");
-     fourthButton.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent event) {
-            scatterChart.setVisible(false);
-            newScatterChart.setVisible(false);
-            table.setVisible(false);
-            barChart.setVisible(true);
-            topTenCheckbox.setVisible(true);
-            topFiveCheckbox.setVisible(true);
-            reverseCheckbox.setVisible(true);
-            barChartTwo.setVisible(false);
-            barChartThree.setVisible(false);
-        }
-    });
     
     HBox search = new HBox();
     search.getChildren().add(searchField);
@@ -468,6 +410,10 @@ barChartFour.setVisible(false);
 
     HBox hbox = new HBox();
     hbox.getChildren().addAll(topTenCheckbox, topFiveCheckbox, reverseCheckbox);
+
+    HBox choice = new HBox();
+        choice.getChildren().add(choiceBox);
+        choice.setAlignment(Pos.TOP_RIGHT);
 
     /* 
         StackPane spLineChart = new StackPane();
@@ -484,7 +430,7 @@ barChartFour.setVisible(false);
 
         // Second tab; scatter chart
         Tab scatterTab = new Tab("Scatter Chart");
-        scatterTab.setContent(new VBox(stackPaneScatter, secondButton, button));
+        scatterTab.setContent(new VBox(stackPaneScatter, secondButton, button, choice));
 
         Tab barTab = new Tab ("Bar Graph");
         barTab.setContent(new VBox(stackPaneBar, hbox));
@@ -493,13 +439,11 @@ barChartFour.setVisible(false);
         tabPane.getTabs().addAll(tableTab, scatterTab, barTab);
 
 
-        HBox choice = new HBox();
-        choice.getChildren().add(choiceBox);
-        choice.setAlignment(Pos.TOP_RIGHT);
+        
     
 
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(search, label, tabPane, choice);
+        vbox.getChildren().addAll(search, label, tabPane);
 
         Scene scene  = new Scene(vbox, 800, 600);
               
