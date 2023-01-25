@@ -9,7 +9,7 @@ public class ArrayData {
     ArrayList<Players> stats = new ArrayList<>();
 
     /**
-     * Allows program to reader csv file
+     * Allows program to read csv file
      */
     public ArrayData(){
 

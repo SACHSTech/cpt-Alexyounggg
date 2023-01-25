@@ -337,6 +337,7 @@ barChartFour.setVisible(false);
         newScatterChart.setVisible(false);
         
         
+        
 
 
         ObservableList<String> options = FXCollections.observableArrayList("Scatter Graph 1", "Scatter Graph 2");
