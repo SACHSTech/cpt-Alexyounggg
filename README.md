@@ -4,5 +4,9 @@ The data that is used are from some of the best three point shooters in the NBA.
 
 Link to data: https://www.basketball-reference.com/leagues/NBA_2022_totals.html#totals_stats::fg3 
 
+Link to Demo Video: https://drive.google.com/file/d/1zk8d2uRuqco6F_eVodi-EmAMVRNHMGCz/view?usp=sharing 
+
+Link to Code Rundown: https://drive.google.com/file/d/1kwobN_f0pP5oE2MeatTXI_wanRfrI57R/view?usp=sharing
+
 * Place your project README details here
 * Check the [VS Code, Java, and JavaFX Install and Set Up](https://docs.google.com/document/d/1s5oTmY8A8TDZu303p_DaH6CEAcC9xL8-aNX-pAxCcps/edit?usp=sharing) doc for set up and getting started instructions.
